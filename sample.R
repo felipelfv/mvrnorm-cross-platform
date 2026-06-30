@@ -1,7 +1,3 @@
-# same seed, same covariance matrix, two samplers:
-# MASS::mvrnorm()    - eigendecomposition transform, can flip across platforms
-# mvtnorm::rmvnorm() - sign-flip-invariant transform, should agree everywhere
-# the ci runs this on ubuntu / macos / windows and checks each for agreement.
 # https://blog.djnavarro.net/posts/2025-05-18_multivariate-normal-sampling-floating-point/
 
 cov1 <- matrix(
@@ -18,10 +14,6 @@ x_mass <- MASS::mvrnorm(1, mu, cov1)
 
 set.seed(1L)
 x_mvt <- as.numeric(mvtnorm::rmvnorm(1, mu, cov1))
-
-cat("Platform:", R.version$platform, "\n")
-cat("MASS::mvrnorm:    ", sprintf("%.17g", x_mass), "\n")
-cat("mvtnorm::rmvnorm: ", sprintf("%.17g", x_mvt), "\n")
 
 writeLines(
   c(
