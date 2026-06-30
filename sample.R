@@ -28,3 +28,9 @@ writeLines(c(
   paste("evec3",   fmt(evec[, 3])),
   paste("evec4",   fmt(evec[, 4]))
 ), "result.txt")
+
+# Draw many vectors too, so the empirical distributions can be compared across
+# platforms. Per-draw values diverge, the distribution they come from does not.
+set.seed(1L)
+draws <- MASS::mvrnorm(1000, mu, cov1)
+write.table(draws, "draws.csv", row.names = FALSE, col.names = FALSE, sep = ",")
