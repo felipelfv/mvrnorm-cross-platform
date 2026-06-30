@@ -17,14 +17,14 @@ collects every runner's output and flags MATCH or DIVERGE.
 - `mvtnorm::rmvnorm` always agrees. Its transform is invariant to eigenvector
   sign, so the flip cancels out.
 - Nix makes MASS agree too. With `rix` pinning the same OpenBLAS on every runner,
-  `evec4` and MASS match across x86 and ARM. Natively, macOS and Windows both used
-  the same reference LAPACK, yet only macOS flipped. So the flip needs two things
-  at once, reference LAPACK and an ARM chip. Nix puts OpenBLAS on macOS instead,
-  which removes one of them, and the flip is gone.
+  `evec4` and MASS match across x86 and ARM.
 
-So the divergence comes from the LAPACK implementation and the CPU together, not
-the seed. The portable fix is the sign-invariant sampler `mvtnorm`. Nix fixes it
-by giving every machine the same LAPACK.
+Our current suspicion is that the flip needs two things at once, the math library
+and the chip. `eigen()` runs through LAPACK, which leans on BLAS underneath, and
+that is where the rounding gets decided. Natively, macOS and Windows used the same
+reference BLAS and LAPACK, yet only macOS flipped, so the chip seems to matter too.
+Nix swaps in OpenBLAS, which removes the reference half of the pair, and the flip
+is gone.
 
 ## Run locally
 
