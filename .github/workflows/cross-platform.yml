@@ -18,6 +18,16 @@ jobs:
       - name: Install packages
         shell: Rscript {0}
         run: install.packages(c("MASS", "mvtnorm"), repos = "https://cloud.r-project.org")
+      - name: BLAS/LAPACK info
+        shell: Rscript {0}
+        run: |
+          si <- sessionInfo()
+          cat("platform:", R.version$platform, "\n")
+          cat("BLAS:    ", si$BLAS, "\n")
+          cat("LAPACK:  ", si$LAPACK, "\n")
+          cat("La_library:", La_library(), "\n")
+          cat("La_version:", La_version(), "\n")
+          print(extSoftVersion()["BLAS"])
       - name: Sample
         shell: Rscript {0}
         run: source("sample.R")
