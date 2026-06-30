@@ -19,3 +19,5 @@ Same seed, same matrix, across machines:
 
 See the `compare platforms` job in
 [Actions](../../actions) for the actual numbers each machine produced.
+
+TODO: use rix and see what happens.
