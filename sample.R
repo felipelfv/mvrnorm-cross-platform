@@ -15,7 +15,9 @@ set.seed(1L)
 x_mvt <- as.numeric(mvtnorm::rmvnorm(1, mu, cov1))
 evec <- eigen(cov1, symmetric = TRUE)$vectors
 
-message(R.version$platform, " | ", La_library())
+message(R.version$platform,
+        " | BLAS: ", extSoftVersion()[["BLAS"]],
+        " | LAPACK: ", La_library())
 
 fmt <- function(v) paste(sprintf("%.17g", v), collapse = " ")
 writeLines(c(
