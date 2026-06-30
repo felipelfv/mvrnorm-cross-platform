@@ -15,10 +15,20 @@ x_mass <- MASS::mvrnorm(1, mu, cov1)
 set.seed(1L)
 x_mvt <- as.numeric(mvtnorm::rmvnorm(1, mu, cov1))
 
+# The cause: MASS builds its transform from eigenvectors, whose signs LAPACK
+# chooses per-platform, so record them to see which columns flip.
+evec <- eigen(cov1, symmetric = TRUE)$vectors
+
+fmt <- function(v) paste(sprintf("%.17g", v), collapse = " ")
+
 writeLines(
   c(
-    paste("MASS",    paste(sprintf("%.17g", x_mass), collapse = " ")),
-    paste("mvtnorm", paste(sprintf("%.17g", x_mvt),  collapse = " "))
+    paste("MASS",    fmt(x_mass)),
+    paste("mvtnorm", fmt(x_mvt)),
+    paste("evec1",   fmt(evec[, 1])),
+    paste("evec2",   fmt(evec[, 2])),
+    paste("evec3",   fmt(evec[, 3])),
+    paste("evec4",   fmt(evec[, 4]))
   ),
   "result.txt"
 )
