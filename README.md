@@ -1,9 +1,12 @@
 # mvrnorm cross-platform check
 
 Does a **seeded** multivariate-normal draw come out the same on Linux, macOS, and
-Windows? This runs one `MASS::mvrnorm()` call (same `set.seed()`, same covariance
-matrix) on all three GitHub runners and reports the four numbers each produced,
-plus whether they match.
+Windows? This runs the same `set.seed()` + same covariance matrix on all three
+GitHub runners with two samplers and reports the numbers each produced plus whether
+they match:
+
+- `MASS::mvrnorm()` — eigendecomposition transform; **diverges** (macOS flips).
+- `mvtnorm::rmvnorm()` — sign-flip-invariant transform; **agrees** everywhere. The fix.
 
 Motivation: Danielle Navarro,
 [*Reproducibility, multivariate normal sampling, and floating point*](https://blog.djnavarro.net/posts/2025-05-18_multivariate-normal-sampling-floating-point/).
