@@ -43,9 +43,13 @@ jobs:
               os=$(basename "$(dirname "$f")" | sed 's/^result-//')
               echo "  $os: $(grep "^$method " "$f" | tr -d '\r' | cut -d' ' -f2-)"
             done
-            n=$(grep -h "^$method " results/*/result.txt | tr -d '\r' | cut -d' ' -f2- | sort -u | wc -l | tr -d ' ')
+            # Round to 10 significant digits so last-bit (ULP) noise doesn't
+            # count as a real divergence; a genuine sign-flip still differs.
+            n=$(grep -h "^$method " results/*/result.txt | tr -d '\r' | cut -d' ' -f2- \
+                | awk '{for(i=1;i<=NF;i++)printf "%.10g ",$i; print ""}' \
+                | sort -u | wc -l | tr -d ' ')
             if [ "$n" -eq 1 ]; then
-              echo "  => MATCH across platforms"
+              echo "  => MATCH across platforms (to 10 significant digits)"
             else
               echo "  => DIVERGE ($n distinct results)"
             fi
