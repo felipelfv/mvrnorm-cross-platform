@@ -1,7 +1,7 @@
-# Same seed, same covariance matrix, two samplers:
-#   MASS::mvrnorm()    - eigendecomposition transform, can flip across platforms
-#   mvtnorm::rmvnorm() - sign-flip-invariant transform, should agree everywhere
-# The CI runs this on ubuntu / macos / windows and checks each for agreement.
+# same seed, same covariance matrix, two samplers:
+# MASS::mvrnorm()    - eigendecomposition transform, can flip across platforms
+# mvtnorm::rmvnorm() - sign-flip-invariant transform, should agree everywhere
+# the ci runs this on ubuntu / macos / windows and checks each for agreement.
 # https://blog.djnavarro.net/posts/2025-05-18_multivariate-normal-sampling-floating-point/
 
 cov1 <- matrix(
