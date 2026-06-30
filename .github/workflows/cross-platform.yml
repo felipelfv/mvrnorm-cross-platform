@@ -60,7 +60,7 @@ jobs:
 
           # Compare each method's digest line across platforms.
           for method in MASS_mvrnorm mvtnorm_rmvnorm mvtnorm_chol; do
-            n=$(grep -h "^${method}\b" results/*/result.txt | awk '{print $2}' | sort -u | wc -l | tr -d ' ')
+            n=$(grep -h "^${method} " results/*/result.txt | tr -d '\r' | awk '{print $2}' | sort -u | wc -l | tr -d ' ')
             if [ "$n" -eq 1 ]; then
               echo "OK   $method: all platforms agree"
             else
@@ -69,7 +69,7 @@ jobs:
           done
 
           # The headline claim: MASS::mvrnorm is the one that can diverge.
-          mass_n=$(grep -h "^MASS_mvrnorm\b" results/*/result.txt | awk '{print $2}' | sort -u | wc -l | tr -d ' ')
+          mass_n=$(grep -h "^MASS_mvrnorm " results/*/result.txt | tr -d '\r' | awk '{print $2}' | sort -u | wc -l | tr -d ' ')
           echo
           if [ "$mass_n" -ne 1 ]; then
             echo "::warning::MASS::mvrnorm output diverges across platforms ($mass_n distinct results) - the eigenvector-sign-flip bug reproduced."
