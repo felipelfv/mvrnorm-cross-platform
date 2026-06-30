@@ -4,10 +4,9 @@
 library(rix)
 
 rix(
-  r_ver = "2026-06-15",
+  date = "2026-06-22",
   r_pkgs = c("MASS", "mvtnorm"),
   ide = "none",
   project_path = ".",
-  overwrite = TRUE,
-  print = TRUE
+  overwrite = TRUE
 )
