@@ -11,6 +11,12 @@ collects every runner's output and flags MATCH or DIVERGE.
 
 ## Results
 
+To see the results, open the
+[latest run on `main`](https://github.com/felipelfv/mvrnorm-cross-platform/actions?query=branch%3Amain)
+and read the `compare` job. It prints each runner's vector side by side and flags
+MATCH or DIVERGE. Each runner's raw `result.txt` is attached to the run as an
+artifact.
+
 - `MASS::mvrnorm` diverges natively. macOS returns a different vector than Linux
   and Windows. The cause is `evec4`. Its sign is flipped on macOS, and MASS's
   transform carries that sign into the draw.
