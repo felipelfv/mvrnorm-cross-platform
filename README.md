@@ -17,7 +17,8 @@ To see the results:
    or click the Actions icon in the repo.
 2. Click the latest run at the top of the list.
 3. Click the `compare` job.
-4. Read the output. It prints each runner's vector side by side and flags MATCH or
+4. Expand the step labeled `Run for set in native nix; do`.
+5. Read the output. It prints each runner's vector side by side and flags MATCH or
    DIVERGE, once for the native set and once for the Nix (`rix`) set.
 
 - `MASS::mvrnorm` diverges natively. macOS returns a different vector than Linux
