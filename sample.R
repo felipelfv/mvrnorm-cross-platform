@@ -8,10 +8,10 @@ cov1 <- matrix(
 )
 mu <- rep(0, 4)
 
-set.seed(1L)
+set.seed(1243L)
 x_mass <- MASS::mvrnorm(1, mu, cov1)
 
-set.seed(1L)
+set.seed(1243L)
 x_mvt <- as.numeric(mvtnorm::rmvnorm(1, mu, cov1))
 evec <- eigen(cov1, symmetric = TRUE)$vectors
 
